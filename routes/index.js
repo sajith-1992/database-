@@ -28,7 +28,7 @@ let product= [{
   image:"https://m.media-amazon.com/images/I/81tnYC7mVyL._AC_UL1500_.jpg"
 },]
 
-  res.render('index', { product });
+  res.render('index', { product,admin:true });
 });
 
 module.exports = router;
