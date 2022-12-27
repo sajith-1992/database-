@@ -26,11 +26,19 @@ router.get('/', function(req, res, next) {
     category:"Men",
     description:"fullslive",
     image:"https://m.media-amazon.com/images/I/81tnYC7mVyL._AC_UL1500_.jpg"
-  },]
+  }]
 
 
 
   res.render('./admin/view-products',{products,admin:true});
 });
+router.get('/add-product',(req,res)=>{
+  res.render('./admin/add-product')
+})
+router.post('/add-product',(req,res)=>{
+  console.log(req.body);
+  console.log(req.files)
+})
+
 
 module.exports = router;
