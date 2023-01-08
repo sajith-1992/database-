@@ -30,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(fileUpload())
 db.connect((err)=>{if (err)
- console.log("err "+err);
-  else console.log("connected")})
+ console.log("connection err "+err);
+  else console.log("connected to port 2017")})
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 

@@ -5,13 +5,14 @@ const state={
     db:null
 }
 module.exports.connect=function(done){
-    const url='mongodb://localhost:27017'
+    const url='mongodb://0.0.0.0:27017'
     const dbname='shopping'
-   new mongoClient(url,(err,data)=>{
-        if (err) return done(err)
-         state.db=data.dbname
+   mongoClient.connect(url,{useUnifiedTopology:true},(err,data)=>{
+        if (err) {return done(err);}
+         state.db=data.db (dbname);
+         done();
     })
-    done()
+    
 }
 module.exports.get=function(){
     return state.db
