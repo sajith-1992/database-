@@ -27,8 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 app.use(fileUpload())
+
 db.connect((err)=>{if (err)
  console.log("connection err "+err);
   else console.log("connected to port 2017")})
