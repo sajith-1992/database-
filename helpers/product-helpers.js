@@ -5,7 +5,7 @@ var collection=require('../configuration/collections')
     
     db.get().collection('product').insertOne(product).then((data)=>{
 
-        console.log(data)
+      //   console.log(data)
         callback(data.insertedId)
          })
         },

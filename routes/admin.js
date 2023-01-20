@@ -7,7 +7,7 @@ var productHealper=require('../helpers/product-helpers')
 router.get('/', function(req, res, next) {
 
  productHealper.getAllProducts().then((products)=>{
-  console.log(products)
+  //console.log(products)
   res.render('./admin/view-products',{products,admin:true});
  })
 
