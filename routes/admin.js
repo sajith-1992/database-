@@ -1,7 +1,7 @@
 const cookieParser = require('cookie-parser');
 var express = require('express');
 var router = express.Router();
-var productHealper=require('../helpers/product-helpers')
+const productHealper=require('../helpers/product-helpers')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
