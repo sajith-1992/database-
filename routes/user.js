@@ -2,12 +2,12 @@ var express = require('express');
 const { response } = require('../app');
 var router = express.Router();
 const productHealper=require('../helpers/product-helpers')
-const userHealpers=require('../helpers/user-helpers')
+const userHelpers=require('../helpers/user-helpers')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   productHealper.getAllProducts().then((products)=>{
-     console.log(products)
+    //  console.log(products)
     res.render('./user/view-userproducts', { products,admin:false });
    })
 
@@ -24,6 +24,16 @@ userHealpers.doSignup(req.body).then((response)=>{
   console.log(response)
 })
 })
+router.post('/login',(req,res)=>{ 
+  // console.log (req.body)
+userHelpers.doLogin(req.body).then((response)=>{
+  if(response.status){
+    res.redirect('/')
+ }else{
+  res.redirect('/login')
+ }
+})
 
+ })
 
 module.exports = router;
