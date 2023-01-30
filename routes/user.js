@@ -7,7 +7,7 @@ const userHelpers=require('../helpers/user-helpers')
 /* GET home page. */
 router.get('/', function(req, res, next) {
  let user=req.session.user
- console.log(user)
+//  console.log(user)
   productHealper.getAllProducts().then((products)=>{
     //  console.log(products)
     res.render('./user/view-userproducts', { products,admin:false,user });
@@ -16,10 +16,11 @@ router.get('/', function(req, res, next) {
 
 });
 router.get('/login',(req,res)=>{
-  if( req.session.loggedIn){
+  if(req.session.loggedIn){
     res.redirect('/')
   }else
-  res.render('./user/login')
+  res.render('./user/login',{"logErr":req.session.loginErr})
+  
 })
 router.get('/signup',(req,res)=>{
   res.render('./user/signup')
@@ -37,6 +38,7 @@ userHelpers.doLogin(req.body).then((response)=>{
     req.session.user=response.user
     res.redirect('/')
  }else{
+  req.session.loginErr=true
   res.redirect('/login')
  }
 })
