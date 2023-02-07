@@ -1,8 +1,19 @@
 var express = require('express');
+const session = require('express-session');
 const { response } = require('../app');
 var router = express.Router();
 const productHealper=require('../helpers/product-helpers')
 const userHelpers=require('../helpers/user-helpers')
+const verifyLogin=(req,res,next)=>{
+  if(req.session.loggedIn){
+    next()
+  }else{
+    res.redirect('/login')
+  }
+}
+
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -38,7 +49,7 @@ userHelpers.doLogin(req.body).then((response)=>{
     req.session.user=response.user
     res.redirect('/')
  }else{
-  req.session.loginErr=true
+  req.session.loginErr="inavlid username or password"
   res.redirect('/login')
  }
 })
@@ -50,4 +61,8 @@ router.get('/logout',(req,res)=>{
   res.redirect('/')
 
 })
+router.get('/cart',verifyLogin,(req,res)=>{
+  res.render('./user/cart')
+})
+
 module.exports = router;

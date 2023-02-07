@@ -16,9 +16,17 @@ var collection=require('../configuration/collections')
         })
          
          
-        }
+        },
+        deleteProduct:(proId)=>{
+          return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).removeOne({_id:proId  }).then((response)=>{
+              resolve(response)
+              console.log(response)
+            })
+          })
+        
      }
 
 
 
-    
+    }

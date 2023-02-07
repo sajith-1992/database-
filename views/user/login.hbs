@@ -2,7 +2,7 @@
 <div class="row">
 <form action=/login method="post" >
 {{#if logErr}}
-<p class="error">Inavlid user name or password</p>
+<p class="error">{{logErr}}</p>
 {{/if}}
  <div class="form-control">
   <input type="email" name="email" placeholder="email">

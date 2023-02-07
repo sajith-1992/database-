@@ -33,6 +33,14 @@ router.post('/add-product',(req,res)=>{
   })
  
    })
+   router.get('/delete-product/:id',(req,res)=>{
+    let proId=req.params.id
+  console.log(proId)
+ 
+    
+
+    
+   })
 
 
 
