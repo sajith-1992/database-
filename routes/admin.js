@@ -36,7 +36,14 @@ router.post('/add-product',(req,res)=>{
    router.get('/delete-product/:id',(req,res)=>{
     let proId=req.params.id
   console.log(proId)
- 
+ productHealper.deleteProduct(proId).then((response)=>{
+  res.redirect('/admin')
+ })
+ router.get('/edit-product/:id',(req,res)=>{
+  res.render("./admin/edit-product")
+ })
+
+
     
 
     
