@@ -1,5 +1,7 @@
 const cookieParser = require('cookie-parser');
 var express = require('express');
+const { response } = require('../app');
+const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 const productHealper=require('../helpers/product-helpers')
 
@@ -39,16 +41,29 @@ router.post('/add-product',(req,res)=>{
  productHealper.deleteProduct(proId).then((response)=>{
   res.redirect('/admin')
  })
- router.get('/edit-product/:id',(req,res)=>{
-  res.render("./admin/edit-product")
- })
+ 
 
 
     
 
     
    })
-
+router.get("/edit-product/:id",async(req,res)=>{
+let product=await productHealper.getProductDetails(req.params.id)
+// console.log(product)  
+res.render('./admin/edit-product',{product})
+})
+router.post("/edit-product/:id",(req,res)=>{
+console.log(req.body)
+let id=req.params.id
+  productHealper.updateProduct(req.params.id,req.body).then(()=>{
+    res.redirect('/admin')
+if(req.files.Image){
+  let image= req.files.Image  
+  image.mv('./public/product-images/'+id+'.jpg')}
+  })
+  
+})
 
 
 module.exports = router;

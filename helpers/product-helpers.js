@@ -1,5 +1,8 @@
  var db=require('../configuration/connection')
 var collection=require('../configuration/collections')
+const { dnsPrefetchControl } = require('helmet')
+const { PRODUCT_COLLECTION } = require('../configuration/collections')
+const { response } = require('../app')
 var objectId=require('mongodb').ObjectId
  module.exports={
  addProduct:(product,callback)=>{
@@ -26,8 +29,33 @@ var objectId=require('mongodb').ObjectId
             })
           })
         
-     }
+     },
+     getProductDetails:(proId)=>{
+      return new Promise((resolve,reject)=>{
+        db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:objectId(proId)}).then((product)=>{
+          resolve(product)
+        })
+      })
+     },
+     updateProduct:(prodId,proDetails)=>{
+      return new Promise((resolve,reject)=>{
+        db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:objectId(prodId)},{
+          $set:{
+            Name:proDetails.Name,
+            Category:proDetails.Category,
+            price:proDetails.Price,
+            Discription:proDetails.Discription,
 
+          }
+        }).then((response)=>{
+          resolve()
+        })
+        
+      })
 
-
+    
+    
     }
+
+
+  }
