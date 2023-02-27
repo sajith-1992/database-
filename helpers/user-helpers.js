@@ -1,7 +1,7 @@
 var db=require('../configuration/connection')
 var collection=require('../configuration/collections')
 const bcrypt=require('bcrypt')
-const { USER_COLLECTION } = require('../configuration/collections')
+const { USER_COLLECTION, CART_COLLECTION } = require('../configuration/collections')
 const { response } = require('../app')
 var objectId=require('mongodb').ObjectId
 module.exports={
@@ -65,7 +65,32 @@ module.exports={
                     resolve()
                 })
             }})
-        }
+        },
+    getCartProducts:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let cartItems=await db. get().collection(collection.CART_COLLECTION).aggregate([{
+                $match:{user:objectId(userId)}
+            },
+            {
+                $lookup:{
+                from:collection.PRODUCT_COLLECTION,
+                let:{proList:"$products"},
+                pipeline:[
+                    {
+                        $match:{
+                            $expr:{
+                                $in:['$_id',"$$proList"]
+                            }
+                        }
+                    }
+                ],as:"cartItems"
+                
+            }}
+        ]).toArray()
+       
+        resolve(cartItems)
+        })
+    }
      }
     
     
