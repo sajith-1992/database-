@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(fileUpload())
-app.use(session({secret:"key",resave:false,saveUninitialized:true,cookie:{maxAge:600000}}))
+app.use(session({secret:"key",resave:false,saveUninitialized:true,cookie:{maxAge:800000}}))
 
 db.connect((err)=>{if (err)
  console.log("connection err "+err);

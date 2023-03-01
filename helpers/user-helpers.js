@@ -47,7 +47,7 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
            let userCart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
             
-    
+   
      if(userCart)
             {
                db.get().collection(collection.CART_COLLECTION).updateOne({user:objectId(userId)},{
@@ -65,32 +65,46 @@ module.exports={
                     resolve()
                 })
             }})
-        },
-    getCartProducts:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let cartItems=await db. get().collection(collection.CART_COLLECTION).aggregate([{
-                $match:{user:objectId(userId)}
-            },
-            {
-                $lookup:{
-                from:collection.PRODUCT_COLLECTION,
-                let:{proList:"$products"},
-                pipeline:[
-                    {
-                        $match:{
-                            $expr:{
-                                $in:['$_id',"$$proList"]
-                            }
-                        }
-                    }
-                ],as:"cartItems"
-                
-            }}
-        ]).toArray()
-       
-        resolve(cartItems)
-        })
-    }
-     }
-    
+         }
+        // ,
+        // getCartProducts: (userId) => {
+        //     return new Promise(async (resolve, reject) => {
+        //       let cartItems = await db
+        //         .get()
+        //         .collection(collection.CART_COLLECTION)
+        //         .aggregate([
+        //           {
+        //             $match: { user: objectId(userId) },
+        //           },
+        //           {
+        //             $unwind: "$products",
+        //           },
+        //           {
+        //             $project: {
+        //               item: "$products.item",
+        //               quantity: "$products.quantity",
+        //             },
+        //           },
+        //           {
+        //             $lookup: {
+        //               from: collection.PRODUCT_COLLECTION,
+        //               localField: "item",
+        //               foreignField: "_id",
+        //               as: "product",
+        //             },
+        //           },
+        //           {
+        //             $project: {
+        //               item: 1,
+        //               quantity: 1,
+        //               product: { $arrayElemAt: ["$product", 0] },
+        //             },
+        //           },
+        //         ])
+        //         .toArray();
+        //       resolve(cartItems);
+        //       console.log(cartItems)
+        //     });
+        //   }
+        }
     
