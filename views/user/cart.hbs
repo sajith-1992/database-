@@ -9,13 +9,16 @@
       </tr>
     </thead>
     <tbody>
+       {{#each products}}
       <tr>
-
-        <td><img src="https://ik.imagekit.io/ikmedia/backlit.jpg" style="width: 70px; heigth: 70px;" /></td>
-        <td>saree</td>
+        
+        <td><img src="/product-images/{{this._id}}.jpg" style="width: 70px; heigth: 70px;" ></td>
+        <td>{{this.Name}}</td>
         <td><button style="width:10px; heigth:10px">-</button>1<button>+</button></td>
-        <td><button class=">Remove</button></td>
+        <td><button >Remove</button></td>
+        
     </tr>
+    {{/each}}
   </tbody>
 </table>
 
